@@ -86,3 +86,5 @@ trainer = UnslothTrainer(
 )
 
 trainer.train()
+
+model.push_to_hub_merged("daniazie/Mistral-3.1-24B-ms-CPT", tokenizer, save_method = "merged_4bit")
