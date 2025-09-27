@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-gpu=8
 #SBATCH --mem-per-gpu=32G
 #SBATCH -p batch_ugrad
-#SBATCH -w aurora-g4
+#SBATCH -w aurora-g5
 #SBATCH -t 1-0
 #SBATCH -o ./logs/slurm-%A.out
 #SBATCH -e ./logs/slurm-err-%A.out
@@ -15,4 +15,4 @@ import torch
 print(torch.cuda.is_available())
 EOF
 
-python models/cpt.py
+python models/cpt.py --train_size 0.2

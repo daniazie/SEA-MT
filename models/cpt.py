@@ -2,10 +2,23 @@ from unsloth import FastLanguageModel, UnslothTrainer, UnslothTrainingArguments,
 from transformers import TrainingArguments
 from huggingface_hub import login
 from datasets import load_dataset
+import wandb
+import argparse
 import torch
 import os
 
+def arg_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--train_size', type=float, help='Training set size', default=1.0)
+    return parser
+
+parser = arg_parser()
+parse = parser.parse_args()
+
+train_size = parse.train_size
+
 login(os.environ['HUGGINGFACE_TOKEN'])
+wandb.login(key=os.environ['WANDB_KEY'])
 
 max_seq_length = 4096
 dtype=None
@@ -51,17 +64,18 @@ def formatting_prompts_func(examples):
     return{'text': outputs}
 
 dataset = load_dataset("wikimedia/wikipedia", '20231101.ms', split='train')
+dataset = dataset.train_test_split(train_size=train_size)['train']
 dataset = dataset.map(formatting_prompts_func, batched=True)
 
 os.makedirs('model_exp', exist_ok=True)
 os.makedirs('model_exp/Mistral-ms-CPT', exist_ok=True)
 
 args = UnslothTrainingArguments(
-    per_device_train_batch_size=16,
-    gradient_accumulation_steps=64,
+    per_device_train_batch_size=2,
+    gradient_accumulation_steps=512,
     warmup_steps=10,
     warmup_ratio=0.1,
-    num_train_epochs=3,
+    num_train_epochs=2,
     learning_rate=5e-5,
     embedding_learning_rate=1e-5,
     fp16=not is_bf16_supported(),
@@ -86,5 +100,5 @@ trainer = UnslothTrainer(
 
 trainer.train()
 
-model.push_to_hub("daniazie/Mistral-3.1-24B-ms-CPT-adapters", tokenizer, save_method = "merged_4bit")
-model.push_to_hub_merged("daniazie/Mistral-3.1-24B-ms-CPT", tokenizer, save_method = "merged_4bit")
+model.push_to_hub(f"daniazie/Mistral-v0.3-7b-ms-{train_size}-CPT-adapters", tokenizer, save_method = "merged_4bit")
+model.push_to_hub_merged(f"daniazie/Mistral-v0.3-7b-ms-{train_size}-CPT", tokenizer, save_method = "merged_4bit")
