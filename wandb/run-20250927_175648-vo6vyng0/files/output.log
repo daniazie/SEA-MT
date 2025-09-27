@@ -1,0 +1,158 @@
+wandb: Detected [huggingface_hub.inference] in use.
+wandb: Use W&B Weave for improved LLM call tracing. Install Weave with `pip install weave` then add `import weave` to the top of your script.
+wandb: For more information, check out the docs at: https://weave-docs.wandb.ai/
+  0%|          | 0/57600 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/data/dania.moriazi01/SEA-MT/models/cpt.py", line 87, in <module>
+    trainer.train()
+    ~~~~~~~~~~~~~^^
+  File "/data/dania.moriazi01/SEA-MT/unsloth_compiled_cache/UnslothSFTTrainer.py", line 53, in wrapper
+    output = f(self, *args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/trainer.py", line 2328, in train
+    return inner_training_loop(
+        args=args,
+    ...<2 lines>...
+        ignore_keys_for_eval=ignore_keys_for_eval,
+    )
+  File "<string>", line 323, in _fast_inner_training_loop
+  File "/data/dania.moriazi01/SEA-MT/unsloth_compiled_cache/UnslothSFTTrainer.py", line 1128, in training_step
+    return super().training_step(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "<string>", line 40, in _unsloth_training_step
+  File "/data/dania.moriazi01/SEA-MT/unsloth_compiled_cache/UnslothSFTTrainer.py", line 1117, in compute_loss
+    outputs = super().compute_loss(
+        model,
+    ...<2 lines>...
+        num_items_in_batch = num_items_in_batch,
+    )
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/unsloth/models/_utils.py", line 1315, in _unsloth_pre_compute_loss
+    outputs = self._old_compute_loss(model, inputs, *args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/trainer.py", line 4099, in compute_loss
+    outputs = model(**inputs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/accelerate/utils/operations.py", line 818, in forward
+    return model_forward(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/accelerate/utils/operations.py", line 806, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+                           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/amp/autocast_mode.py", line 44, in decorate_autocast
+    return func(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/peft/peft_model.py", line 1850, in forward
+    return self.base_model(
+           ~~~~~~~~~~~~~~~^
+        input_ids=input_ids,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/peft/tuners/tuners_utils.py", line 222, in forward
+    return self.model.forward(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/SEA-MT/unsloth_compiled_cache/unsloth_compiled_module_mistral3.py", line 534, in forward
+    return Mistral3ForConditionalGeneration_forward(self, input_ids, pixel_values, attention_mask, position_ids, past_key_values, inputs_embeds, labels, use_cache, output_attentions, output_hidden_states, return_dict, cache_position, logits_to_keep, image_sizes, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/_dynamo/external_utils.py", line 198, in nonrecursive_disable_wrapper
+    return fn(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/utils/generic.py", line 940, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/data/dania.moriazi01/SEA-MT/unsloth_compiled_cache/unsloth_compiled_module_mistral3.py", line 318, in Mistral3ForConditionalGeneration_forward
+    outputs = self.model(
+        input_ids=input_ids,
+    ...<11 lines>...
+        **kwargs,
+    )
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/utils/generic.py", line 940, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/models/mistral3/modeling_mistral3.py", line 335, in forward
+    outputs = self.language_model(
+        attention_mask=attention_mask,
+    ...<8 lines>...
+        **kwargs,
+    )
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/utils/generic.py", line 1064, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/models/mistral/modeling_mistral.py", line 369, in forward
+    hidden_states = decoder_layer(
+        hidden_states,
+    ...<6 lines>...
+        **kwargs,
+    )
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return self._gradient_checkpointing_func(partial(super().__call__, **kwargs), *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/utils/checkpoint.py", line 488, in checkpoint
+    return CheckpointFunction.apply(function, preserve, *args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/autograd/function.py", line 576, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/unsloth_zoo/gradient_checkpointing.py", line 477, in forward
+    outputs = run_function(*args)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/models/mistral/modeling_mistral.py", line 231, in forward
+    hidden_states, _ = self.self_attn(
+                       ~~~~~~~~~~~~~~^
+        hidden_states=hidden_states,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/data/dania.moriazi01/SEA-MT/unsloth_compiled_cache/unsloth_compiled_module_mistral.py", line 337, in forward
+    return MistralAttention_forward(self, hidden_states, position_embeddings, attention_mask, past_key_values, cache_position, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/torch/_dynamo/external_utils.py", line 198, in nonrecursive_disable_wrapper
+    return fn(*args, **kwargs)
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "/data/dania.moriazi01/SEA-MT/unsloth_compiled_cache/unsloth_compiled_module_mistral.py", line 294, in MistralAttention_forward
+    attn_output, attn_weights = attention_interface(
+                                ~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<7 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/data/dania.moriazi01/anaconda3/envs/seaMT/lib/python3.13/site-packages/transformers/integrations/sdpa_attention.py", line 83, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+        query,
+    ...<6 lines>...
+        **sdpa_kwargs,
+    )
+RuntimeError: Expected attn_mask dtype to be bool or float or to match query dtype, but got attn_mask.dtype: long int and  query.dtype: c10::BFloat16 instead.
