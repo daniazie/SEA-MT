@@ -1,4 +1,4 @@
-from unsloth import FastLanguageModel, UnslothTrainer, UnslothTrainingArguments, is_bfloat16_supported
+from unsloth import FastLanguageModel, UnslothTrainer, UnslothTrainingArguments, is_bf16_supported
 from transformers import TrainingArguments
 from huggingface_hub import login
 from datasets import load_dataset
@@ -64,8 +64,8 @@ args = UnslothTrainingArguments(
     num_train_epochs=10,
     learning_rate=5e-5,
     embedding_learning_rate=1e-5,
-    fp16=not is_bfloat16_supported(),
-    bf16=is_bfloat16_supported(),
+    fp16=not is_bf16_supported(),
+    bf16=is_bf16_supported(),
     logging_steps=100,
     optim='adamw_8bit',
     weight_decay=0.01,
