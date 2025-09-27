@@ -1,3 +1,4 @@
 logs
 unsloth_compiled_cache
 submit_job.sh
+wandb
