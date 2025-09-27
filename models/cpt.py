@@ -18,7 +18,7 @@ parse = parser.parse_args()
 train_size = parse.train_size
 
 login(os.environ['HUGGINGFACE_TOKEN'])
-wandb.login(key=os.environ['WANDB_KEY'])
+# wandb.login(key=os.environ['WANDB_KEY'])
 
 max_seq_length = 4096
 dtype=None
