@@ -2,7 +2,6 @@ from unsloth import FastLanguageModel, UnslothTrainer, UnslothTrainingArguments,
 from transformers import TrainingArguments
 from huggingface_hub import login
 from datasets import load_dataset
-import wandb
 import torch
 import os
 
@@ -10,20 +9,20 @@ login(os.environ['HUGGINGFACE_TOKEN'])
 
 max_seq_length = 4096
 dtype=None
-load_in__4bit = True
+load_in_4bit = True
 
 model, tokenizer = FastLanguageModel.from_pretrained(
     model_name='unsloth/Mistral-Small-3.1-24B-Base-2503-bnb-4bit',
     max_seq_length=max_seq_length,
     dtype=dtype,
-    load_in__4bit=load_in__4bit
+    load_in_4bit=load_in_4bit
 )
 
 model = FastLanguageModel.get_peft_model(
     model,
-    r = 128,
+    r = 256,
     target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj", "embed_tokens", "lm_head"],
-    lora_alpha=32,
+    lora_alpha=16,
     lora_dropout=0,
     bias='none',
     use_gradient_checkpointing='unsloth',
