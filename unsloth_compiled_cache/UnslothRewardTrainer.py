@@ -143,31 +143,31 @@ def left_pack_padding(tensor: torch.Tensor, pad_id: int) -> torch.Tensor:
 class UnslothRewardConfig(RewardConfig):
     """
     
-Configuration class for the [`RewardTrainer`].
+    Configuration class for the [`RewardTrainer`].
 
-This class includes only the parameters that are specific to Reward training. For a full list of training
-arguments, please refer to the [`~transformers.TrainingArguments`] documentation. Note that default values in this
-class may differ from those in [`~transformers.TrainingArguments`].
+    This class includes only the parameters that are specific to Reward training. For a full list of training
+    arguments, please refer to the [`~transformers.TrainingArguments`] documentation. Note that default values in this
+    class may differ from those in [`~transformers.TrainingArguments`].
 
-Using [`~transformers.HfArgumentParser`] we can turn this class into
-[argparse](https://docs.python.org/3/library/argparse#module-argparse) arguments that can be specified on the
-command line.
+    Using [`~transformers.HfArgumentParser`] we can turn this class into
+    [argparse](https://docs.python.org/3/library/argparse#module-argparse) arguments that can be specified on the
+    command line.
 
-Parameters:
-    max_length (`int` or `None`, *optional*, defaults to `1024`):
-        Maximum length of the sequences (prompt + completion) in the batch, filters out entries that exceed the
-        limit. This argument is required if you want to use the default data collator.
-    disable_dropout (`bool`, *optional*, defaults to `True`):
-        Whether to disable dropout in the model.
-    dataset_num_proc (`int`, *optional*, defaults to `None`):
-        Number of processes to use for processing the dataset.
-    center_rewards_coefficient (`float`, *optional*, defaults to `None`):
-        Coefficient to incentivize the reward model to output mean-zero rewards (proposed by
-        https://huggingface.co/papers/2312.09244, Eq. 2). Recommended value: `0.01`.
-    remove_unused_columns (`bool`, *optional*, defaults to `False`):
-        Whether to remove the columns that are not used by the model's forward pass. Can be `True` only if the
-        dataset is pretokenized.
-
+    Parameters:
+        max_length (`int` or `None`, *optional*, defaults to `1024`):
+            Maximum length of the sequences (prompt + completion) in the batch, filters out entries that exceed the
+            limit. This argument is required if you want to use the default data collator.
+        disable_dropout (`bool`, *optional*, defaults to `True`):
+            Whether to disable dropout in the model.
+        dataset_num_proc (`int`, *optional*, defaults to `None`):
+            Number of processes to use for processing the dataset.
+        center_rewards_coefficient (`float`, *optional*, defaults to `None`):
+            Coefficient to incentivize the reward model to output mean-zero rewards (proposed by
+            https://huggingface.co/papers/2312.09244, Eq. 2). Recommended value: `0.01`.
+        remove_unused_columns (`bool`, *optional*, defaults to `False`):
+            Whether to remove the columns that are not used by the model's forward pass. Can be `True` only if the
+            dataset is pretokenized.
+    
     """
     vllm_sampling_params: Optional[Any] = field(
         default = None,
@@ -470,43 +470,7 @@ Parameters:
 pass
 
 class _UnslothRewardTrainer(Trainer):
-    """
-    Trainer for custom reward.
-
-    Args:
-        model ([`~transformers.PreTrainedModel`] or `torch.nn.Module`, *optional*):
-            Model to be trained, preferably an [`~transformers.AutoModelForSequenceClassification`].
-        args ([`RewardConfig`], *optional*):
-            Training arguments.
-        data_collator ([`~transformers.DataCollator`], *optional*):
-            The data collator to use for training. If None is specified, the default data collator
-            [`~trainer.utils.RewardDataCollatorWithPadding`] will be used which will pad the sequences to the maximum
-            length of the sequences in the batch, given a dataset of paired sequences.
-        train_dataset ([`~datasets.Dataset`], *optional*):
-            The dataset to use for training.
-        eval_dataset ([`~datasets.Dataset`], *optional*):
-            The dataset to use for evaluation.
-        processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*):
-            Processing class used to process the data. If provided, will be used to automatically process the inputs
-            for the model, and it will be saved along the model to make it easier to rerun an interrupted training or
-            reuse the fine-tuned model.
-        model_init (`Callable[[], transformers.PreTrainedModel]`, *optional*):
-            The model initializer to use for training. If None is specified, the default model initializer will be
-            used.
-        compute_metrics (`Callable[[transformers.EvalPrediction], dict]`, *optional*, defaults to [`~trainer.utils.compute_accuracy`]):
-            Function to compute metrics at evaluation. Must take in an [`~transformers.EvalPrediction`] and return a
-            dictionary string to float.
-        callbacks (`list` of [`~transformers.TrainerCallback`], *optional*):
-            Callbacks to use during training.
-        optimizers (`tuple` of `torch.optim.Optimizer` and `torch.optim.lr_scheduler.LambdaLR`, *optional*, defaults to `(None, None)`):
-            Tuple containing the optimizer and the learning rate scheduler to use for training.
-        preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`, *optional*):
-            Function to preprocess the logits before computing the metrics. Must take in the `logits` and `labels` and
-            return the logits to be used for metrics computation.
-        peft_config (`dict`, *optional*):
-            PEFT configuration to use PEFT for training. If `None`, PEFT is not used. If provided, the `model` will be
-            wrapped with the specified PEFT adapter.
-    """
+    """"""
 
     _tag_names = ["trl", "reward-trainer"]
 
@@ -800,42 +764,42 @@ class _UnslothRewardTrainer(Trainer):
 class UnslothRewardTrainer(_UnslothRewardTrainer):
     """
     
-Trainer for custom reward.
+    Trainer for custom reward.
 
-Args:
-    model ([`~transformers.PreTrainedModel`] or `torch.nn.Module`, *optional*):
-        Model to be trained, preferably an [`~transformers.AutoModelForSequenceClassification`].
-    args ([`RewardConfig`], *optional*):
-        Training arguments.
-    data_collator ([`~transformers.DataCollator`], *optional*):
-        The data collator to use for training. If None is specified, the default data collator
-        [`~trainer.utils.RewardDataCollatorWithPadding`] will be used which will pad the sequences to the maximum
-        length of the sequences in the batch, given a dataset of paired sequences.
-    train_dataset ([`~datasets.Dataset`], *optional*):
-        The dataset to use for training.
-    eval_dataset ([`~datasets.Dataset`], *optional*):
-        The dataset to use for evaluation.
-    processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*):
-        Processing class used to process the data. If provided, will be used to automatically process the inputs
-        for the model, and it will be saved along the model to make it easier to rerun an interrupted training or
-        reuse the fine-tuned model.
-    model_init (`Callable[[], transformers.PreTrainedModel]`, *optional*):
-        The model initializer to use for training. If None is specified, the default model initializer will be
-        used.
-    compute_metrics (`Callable[[transformers.EvalPrediction], dict]`, *optional*, defaults to [`~trainer.utils.compute_accuracy`]):
-        Function to compute metrics at evaluation. Must take in an [`~transformers.EvalPrediction`] and return a
-        dictionary string to float.
-    callbacks (`list` of [`~transformers.TrainerCallback`], *optional*):
-        Callbacks to use during training.
-    optimizers (`tuple` of `torch.optim.Optimizer` and `torch.optim.lr_scheduler.LambdaLR`, *optional*, defaults to `(None, None)`):
-        Tuple containing the optimizer and the learning rate scheduler to use for training.
-    preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`, *optional*):
-        Function to preprocess the logits before computing the metrics. Must take in the `logits` and `labels` and
-        return the logits to be used for metrics computation.
-    peft_config (`dict`, *optional*):
-        PEFT configuration to use PEFT for training. If `None`, PEFT is not used. If provided, the `model` will be
-        wrapped with the specified PEFT adapter.
-
+    Args:
+        model ([`~transformers.PreTrainedModel`] or `torch.nn.Module`, *optional*):
+            Model to be trained, preferably an [`~transformers.AutoModelForSequenceClassification`].
+        args ([`RewardConfig`], *optional*):
+            Training arguments.
+        data_collator ([`~transformers.DataCollator`], *optional*):
+            The data collator to use for training. If None is specified, the default data collator
+            [`~trainer.utils.RewardDataCollatorWithPadding`] will be used which will pad the sequences to the maximum
+            length of the sequences in the batch, given a dataset of paired sequences.
+        train_dataset ([`~datasets.Dataset`], *optional*):
+            The dataset to use for training.
+        eval_dataset ([`~datasets.Dataset`], *optional*):
+            The dataset to use for evaluation.
+        processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*):
+            Processing class used to process the data. If provided, will be used to automatically process the inputs
+            for the model, and it will be saved along the model to make it easier to rerun an interrupted training or
+            reuse the fine-tuned model.
+        model_init (`Callable[[], transformers.PreTrainedModel]`, *optional*):
+            The model initializer to use for training. If None is specified, the default model initializer will be
+            used.
+        compute_metrics (`Callable[[transformers.EvalPrediction], dict]`, *optional*, defaults to [`~trainer.utils.compute_accuracy`]):
+            Function to compute metrics at evaluation. Must take in an [`~transformers.EvalPrediction`] and return a
+            dictionary string to float.
+        callbacks (`list` of [`~transformers.TrainerCallback`], *optional*):
+            Callbacks to use during training.
+        optimizers (`tuple` of `torch.optim.Optimizer` and `torch.optim.lr_scheduler.LambdaLR`, *optional*, defaults to `(None, None)`):
+            Tuple containing the optimizer and the learning rate scheduler to use for training.
+        preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`, *optional*):
+            Function to preprocess the logits before computing the metrics. Must take in the `logits` and `labels` and
+            return the logits to be used for metrics computation.
+        peft_config (`dict`, *optional*):
+            PEFT configuration to use PEFT for training. If `None`, PEFT is not used. If provided, the `model` will be
+            wrapped with the specified PEFT adapter.
+    
     """
     def __init__(
         self,

@@ -143,38 +143,38 @@ def left_pack_padding(tensor: torch.Tensor, pad_id: int) -> torch.Tensor:
 class UnslothIterativeSFTConfig(IterativeSFTConfig):
     """
     
-Configuration class for the [`IterativeSFTTrainer`].
+    Configuration class for the [`IterativeSFTTrainer`].
 
-<Tip warning={true}>
+    <Tip warning={true}>
 
-The [`IterativeSFTTrainer`] is deprecated and will be removed in version 0.24.0. Please use the [`SFTTrainer`].
+    The [`IterativeSFTTrainer`] is deprecated and will be removed in version 0.24.0. Please use the [`SFTTrainer`].
 
-</Tip>
+    </Tip>
 
-This class includes only the parameters that are specific to Iterative SFT training. For a full list of training
-arguments, please refer to the [`~transformers.TrainingArguments`] documentation. Note that default values in this
-class may differ from those in [`~transformers.TrainingArguments`].
+    This class includes only the parameters that are specific to Iterative SFT training. For a full list of training
+    arguments, please refer to the [`~transformers.TrainingArguments`] documentation. Note that default values in this
+    class may differ from those in [`~transformers.TrainingArguments`].
 
-Using [`~transformers.HfArgumentParser`] we can turn this class into
-[argparse](https://docs.python.org/3/library/argparse#module-argparse) arguments that can be specified on the
-command line.
+    Using [`~transformers.HfArgumentParser`] we can turn this class into
+    [argparse](https://docs.python.org/3/library/argparse#module-argparse) arguments that can be specified on the
+    command line.
 
-Parameters:
-    > Parameters that control the model
+    Parameters:
+        > Parameters that control the model
 
-    model_init_kwargs (`dict[str, Any]` or `None`, *optional*, defaults to `None`):
-        Keyword arguments for [`~transformers.AutoModelForCausalLM.from_pretrained`], used when the `model`
-        argument of the [`IterativeSFTTrainer`] is provided as a string.
+        model_init_kwargs (`dict[str, Any]` or `None`, *optional*, defaults to `None`):
+            Keyword arguments for [`~transformers.AutoModelForCausalLM.from_pretrained`], used when the `model`
+            argument of the [`IterativeSFTTrainer`] is provided as a string.
 
-    > Parameters that control the data preprocessing
+        > Parameters that control the data preprocessing
 
-    max_length (`int` or `None`, *optional*, defaults to `None`):
-        Maximum length of the tokenized sequence. Sequences longer than `max_length` are truncated.
-    truncation_mode (`str`, *optional*, defaults to `"keep_end"`):
-        The truncation mode to use, either `"keep_end"` or `"keep_start"`.
-    optimize_device_cache (`bool`, *optional*, defaults to `False`):
-        Whether to optimize accelerator cache for slightly more memory-efficient training.
-
+        max_length (`int` or `None`, *optional*, defaults to `None`):
+            Maximum length of the tokenized sequence. Sequences longer than `max_length` are truncated.
+        truncation_mode (`str`, *optional*, defaults to `"keep_end"`):
+            The truncation mode to use, either `"keep_end"` or `"keep_start"`.
+        optimize_device_cache (`bool`, *optional*, defaults to `False`):
+            Whether to optimize accelerator cache for slightly more memory-efficient training.
+    
     """
     vllm_sampling_params: Optional[Any] = field(
         default = None,
@@ -474,45 +474,7 @@ Parameters:
 pass
 
 class _UnslothIterativeSFTTrainer(Trainer):
-    """
-    The IterativeSFTTrainer can be used to finetune models with methods that requires some steps between optimization.
-
-    <Tip warning={true}>
-
-    The [`IterativeSFTTrainer`] is deprecated and will be removed in version 0.24.0. Please use the [`SFTTrainer`].
-
-    </Tip>
-
-    Args:
-        model (`Union[str, PreTrainedModel]`):
-            Model to be trained. Can be either:
-
-            - A string, being the *model id* of a pretrained model hosted inside a model repo on huggingface.co, or a
-              path to a *directory* containing model weights saved using
-              [`~transformers.PreTrainedModel.save_pretrained`], e.g., `'./my_model_directory/'`. The model is loaded
-              using [`~transformers.AutoModelForCausalLM.from_pretrained`] with the keyword arguments in
-              `args.model_init_kwargs`.
-            - A [`~transformers.PreTrainedModel`] object. Only causal language models are supported.
-        args ([`IterativeSFTConfig`], *optional*, defaults to `None`):
-            Configuration for this trainer. If `None`, a default configuration is used.
-        data_collator (`DataCollator`, *optional*):
-            Function to use to form a batch from a list of elements of the processed `train_dataset` or `eval_dataset`.
-            Will default to [`~transformers.default_data_collator`] if no `processing_class` is provided, an instance
-            of [`~transformers.DataCollatorWithPadding`] otherwise if the processing_class is a feature extractor or
-            tokenizer.
-        eval_dataset (`datasets.Dataset`):
-            The dataset to use for evaluation.
-        processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*, defaults to `None`):
-            Processing class used to process the data. If `None`, the processing class is loaded from the model's name
-            with [`~transformers.AutoTokenizer.from_pretrained`].
-        optimizers (`tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]`):
-            The optimizer and scheduler to use for training.
-        preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`):
-            The function to use to preprocess the logits before computing the metrics.
-        compute_metrics (`Callable[[EvalPrediction], dict]`, *optional*):
-            The function to use to compute the metrics. Must take a `EvalPrediction` and return a dictionary string to
-            metric values.
-    """
+    """"""
 
     _tag_names = ["trl", "iterative-sft"]
 
@@ -922,44 +884,44 @@ class _UnslothIterativeSFTTrainer(Trainer):
 class UnslothIterativeSFTTrainer(_UnslothIterativeSFTTrainer):
     """
     
-The IterativeSFTTrainer can be used to finetune models with methods that requires some steps between optimization.
+    The IterativeSFTTrainer can be used to finetune models with methods that requires some steps between optimization.
 
-<Tip warning={true}>
+    <Tip warning={true}>
 
-The [`IterativeSFTTrainer`] is deprecated and will be removed in version 0.24.0. Please use the [`SFTTrainer`].
+    The [`IterativeSFTTrainer`] is deprecated and will be removed in version 0.24.0. Please use the [`SFTTrainer`].
 
-</Tip>
+    </Tip>
 
-Args:
-    model (`Union[str, PreTrainedModel]`):
-        Model to be trained. Can be either:
+    Args:
+        model (`Union[str, PreTrainedModel]`):
+            Model to be trained. Can be either:
 
-        - A string, being the *model id* of a pretrained model hosted inside a model repo on huggingface.co, or a
-          path to a *directory* containing model weights saved using
-          [`~transformers.PreTrainedModel.save_pretrained`], e.g., `'./my_model_directory/'`. The model is loaded
-          using [`~transformers.AutoModelForCausalLM.from_pretrained`] with the keyword arguments in
-          `args.model_init_kwargs`.
-        - A [`~transformers.PreTrainedModel`] object. Only causal language models are supported.
-    args ([`IterativeSFTConfig`], *optional*, defaults to `None`):
-        Configuration for this trainer. If `None`, a default configuration is used.
-    data_collator (`DataCollator`, *optional*):
-        Function to use to form a batch from a list of elements of the processed `train_dataset` or `eval_dataset`.
-        Will default to [`~transformers.default_data_collator`] if no `processing_class` is provided, an instance
-        of [`~transformers.DataCollatorWithPadding`] otherwise if the processing_class is a feature extractor or
-        tokenizer.
-    eval_dataset (`datasets.Dataset`):
-        The dataset to use for evaluation.
-    processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*, defaults to `None`):
-        Processing class used to process the data. If `None`, the processing class is loaded from the model's name
-        with [`~transformers.AutoTokenizer.from_pretrained`].
-    optimizers (`tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]`):
-        The optimizer and scheduler to use for training.
-    preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`):
-        The function to use to preprocess the logits before computing the metrics.
-    compute_metrics (`Callable[[EvalPrediction], dict]`, *optional*):
-        The function to use to compute the metrics. Must take a `EvalPrediction` and return a dictionary string to
-        metric values.
-
+            - A string, being the *model id* of a pretrained model hosted inside a model repo on huggingface.co, or a
+              path to a *directory* containing model weights saved using
+              [`~transformers.PreTrainedModel.save_pretrained`], e.g., `'./my_model_directory/'`. The model is loaded
+              using [`~transformers.AutoModelForCausalLM.from_pretrained`] with the keyword arguments in
+              `args.model_init_kwargs`.
+            - A [`~transformers.PreTrainedModel`] object. Only causal language models are supported.
+        args ([`IterativeSFTConfig`], *optional*, defaults to `None`):
+            Configuration for this trainer. If `None`, a default configuration is used.
+        data_collator (`DataCollator`, *optional*):
+            Function to use to form a batch from a list of elements of the processed `train_dataset` or `eval_dataset`.
+            Will default to [`~transformers.default_data_collator`] if no `processing_class` is provided, an instance
+            of [`~transformers.DataCollatorWithPadding`] otherwise if the processing_class is a feature extractor or
+            tokenizer.
+        eval_dataset (`datasets.Dataset`):
+            The dataset to use for evaluation.
+        processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*, defaults to `None`):
+            Processing class used to process the data. If `None`, the processing class is loaded from the model's name
+            with [`~transformers.AutoTokenizer.from_pretrained`].
+        optimizers (`tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]`):
+            The optimizer and scheduler to use for training.
+        preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`):
+            The function to use to preprocess the logits before computing the metrics.
+        compute_metrics (`Callable[[EvalPrediction], dict]`, *optional*):
+            The function to use to compute the metrics. Must take a `EvalPrediction` and return a dictionary string to
+            metric values.
+    
     """
     def __init__(
         self,

@@ -12,7 +12,7 @@ dtype=None
 load_in_4bit = True
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name='unsloth/Mistral-Small-3.1-24B-Base-2503-bnb-4bit',
+    model_name='unsloth/mistral-7b-v0.3-bnb-4bit',
     max_seq_length=max_seq_length,
     dtype=dtype,
     load_in_4bit=load_in_4bit
@@ -20,14 +20,14 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 
 model = FastLanguageModel.get_peft_model(
     model,
-    r = 256,
+    r = 64,
     target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj", "embed_tokens", "lm_head"],
-    lora_alpha=16,
+    lora_alpha=4,
     lora_dropout=0,
     bias='none',
     use_gradient_checkpointing='unsloth',
     use_rslora=True,
-    loftq_config=True
+    loftq_config=None
 )
 
 prompt = """Rencana Wikipedia
@@ -57,11 +57,11 @@ os.makedirs('model_exp', exist_ok=True)
 os.makedirs('model_exp/Mistral-ms-CPT', exist_ok=True)
 
 args = UnslothTrainingArguments(
-    per_device_train_batch_size=4,
-    gradient_accumulation_steps=16,
+    per_device_train_batch_size=16,
+    gradient_accumulation_steps=64,
     warmup_steps=10,
     warmup_ratio=0.1,
-    num_train_epochs=10,
+    num_train_epochs=3,
     learning_rate=5e-5,
     embedding_learning_rate=1e-5,
     fp16=not is_bf16_supported(),

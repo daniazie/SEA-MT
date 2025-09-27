@@ -143,15 +143,15 @@ def left_pack_padding(tensor: torch.Tensor, pad_id: int) -> torch.Tensor:
 class UnslothXPOConfig(XPOConfig):
     """
     
-Configuration class for the [`XPOTrainer`].
+    Configuration class for the [`XPOTrainer`].
 
-Subclass of [`OnlineDPOConfig`] we can use all its arguments and add the following:
+    Subclass of [`OnlineDPOConfig`] we can use all its arguments and add the following:
 
-Parameters:
-    alpha (`float` or `list[float]`, *optional*, defaults to `1e-5`):
-        Weight of the XPO loss term. If a list of floats is provided then the alpha is selected for each new epoch
-        and the last alpha is used for the rest of the epochs.
-
+    Parameters:
+        alpha (`float` or `list[float]`, *optional*, defaults to `1e-5`):
+            Weight of the XPO loss term. If a list of floats is provided then the alpha is selected for each new epoch
+            and the last alpha is used for the rest of the epochs.
+    
     """
     vllm_sampling_params: Optional[Any] = field(
         default = None,
@@ -511,53 +511,7 @@ Parameters:
 pass
 
 class _UnslothXPOTrainer(OnlineDPOTrainer):
-    r"""
-    Initialize XPOTrainer as a subclass of [`OnlineDPOConfig`].
-
-    Args:
-        model (`transformers.PreTrainedModel`):
-            The model to train, preferably an `AutoModelForCausalLM`.
-        ref_model (`PreTrainedModelWrapper`):
-            Hugging Face transformer model with a casual language modelling head. Used for implicit reward computation
-            and loss. If no reference model is provided, the trainer will create a reference model with the same
-            architecture as the model to be optimized.
-        reward_funcs (`transformers.PreTrainedModel`):
-            The reward model to score completions with, preferably an `AutoModelForSequenceClassification`.
-        judge (`BasePairwiseJudge`):
-            The judge to use for pairwise comparison of model completions.
-        args (`XPOConfig`):
-            The XPO config arguments to use for training.
-        data_collator (`transformers.DataCollator`):
-            The data collator to use for training. If None is specified, the default data collator
-            (`DPODataCollatorWithPadding`) will be used which will pad the sequences to the maximum length of the
-            sequences in the batch, given a dataset of paired sequences.
-        train_dataset (`datasets.Dataset`):
-            The dataset to use for training.
-        eval_dataset (`datasets.Dataset`):
-            The dataset to use for evaluation.
-        processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*, defaults to `None`):
-            Processing class used to process the data. If provided, will be used to automatically process the inputs
-            for the model, and it will be saved along the model to make it easier to rerun an interrupted training or
-            reuse the fine-tuned model.
-        peft_config (`dict`):
-            The peft config to use for training.
-        compute_metrics (`Callable[[EvalPrediction], dict]`, *optional*):
-            The function to use to compute the metrics. Must take a `EvalPrediction` and return a dictionary string to
-            metric values.
-        callbacks (`list[transformers.TrainerCallback]`):
-            The callbacks to use for training.
-        optimizers (`tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]`):
-            The optimizer and scheduler to use for training.
-        preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`):
-            The function to use to preprocess the logits before computing the metrics.
-
-    .. deprecated:: 0.22.0
-        The following parameters are deprecated and will be removed in a future version:
-
-        * `reward_model`: Use `reward_funcs` instead. For example, change `reward_model=model` to `reward_funcs=model`.
-        * `reward_processing_class`: Use `reward_processing_classes` instead. For example, change
-          `reward_processing_class=tokenizer` to `reward_processing_classes=tokenizer`.
-    """
+    r""""""
 
     _tag_names = ["trl", "xpo"]
 
@@ -1060,52 +1014,52 @@ class _UnslothXPOTrainer(OnlineDPOTrainer):
 class UnslothXPOTrainer(_UnslothXPOTrainer):
     """
     
-Initialize XPOTrainer as a subclass of [`OnlineDPOConfig`].
+    Initialize XPOTrainer as a subclass of [`OnlineDPOConfig`].
 
-Args:
-    model (`transformers.PreTrainedModel`):
-        The model to train, preferably an `AutoModelForCausalLM`.
-    ref_model (`PreTrainedModelWrapper`):
-        Hugging Face transformer model with a casual language modelling head. Used for implicit reward computation
-        and loss. If no reference model is provided, the trainer will create a reference model with the same
-        architecture as the model to be optimized.
-    reward_funcs (`transformers.PreTrainedModel`):
-        The reward model to score completions with, preferably an `AutoModelForSequenceClassification`.
-    judge (`BasePairwiseJudge`):
-        The judge to use for pairwise comparison of model completions.
-    args (`XPOConfig`):
-        The XPO config arguments to use for training.
-    data_collator (`transformers.DataCollator`):
-        The data collator to use for training. If None is specified, the default data collator
-        (`DPODataCollatorWithPadding`) will be used which will pad the sequences to the maximum length of the
-        sequences in the batch, given a dataset of paired sequences.
-    train_dataset (`datasets.Dataset`):
-        The dataset to use for training.
-    eval_dataset (`datasets.Dataset`):
-        The dataset to use for evaluation.
-    processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*, defaults to `None`):
-        Processing class used to process the data. If provided, will be used to automatically process the inputs
-        for the model, and it will be saved along the model to make it easier to rerun an interrupted training or
-        reuse the fine-tuned model.
-    peft_config (`dict`):
-        The peft config to use for training.
-    compute_metrics (`Callable[[EvalPrediction], dict]`, *optional*):
-        The function to use to compute the metrics. Must take a `EvalPrediction` and return a dictionary string to
-        metric values.
-    callbacks (`list[transformers.TrainerCallback]`):
-        The callbacks to use for training.
-    optimizers (`tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]`):
-        The optimizer and scheduler to use for training.
-    preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`):
-        The function to use to preprocess the logits before computing the metrics.
+    Args:
+        model (`transformers.PreTrainedModel`):
+            The model to train, preferably an `AutoModelForCausalLM`.
+        ref_model (`PreTrainedModelWrapper`):
+            Hugging Face transformer model with a casual language modelling head. Used for implicit reward computation
+            and loss. If no reference model is provided, the trainer will create a reference model with the same
+            architecture as the model to be optimized.
+        reward_funcs (`transformers.PreTrainedModel`):
+            The reward model to score completions with, preferably an `AutoModelForSequenceClassification`.
+        judge (`BasePairwiseJudge`):
+            The judge to use for pairwise comparison of model completions.
+        args (`XPOConfig`):
+            The XPO config arguments to use for training.
+        data_collator (`transformers.DataCollator`):
+            The data collator to use for training. If None is specified, the default data collator
+            (`DPODataCollatorWithPadding`) will be used which will pad the sequences to the maximum length of the
+            sequences in the batch, given a dataset of paired sequences.
+        train_dataset (`datasets.Dataset`):
+            The dataset to use for training.
+        eval_dataset (`datasets.Dataset`):
+            The dataset to use for evaluation.
+        processing_class ([`~transformers.PreTrainedTokenizerBase`], [`~transformers.BaseImageProcessor`], [`~transformers.FeatureExtractionMixin`] or [`~transformers.ProcessorMixin`], *optional*, defaults to `None`):
+            Processing class used to process the data. If provided, will be used to automatically process the inputs
+            for the model, and it will be saved along the model to make it easier to rerun an interrupted training or
+            reuse the fine-tuned model.
+        peft_config (`dict`):
+            The peft config to use for training.
+        compute_metrics (`Callable[[EvalPrediction], dict]`, *optional*):
+            The function to use to compute the metrics. Must take a `EvalPrediction` and return a dictionary string to
+            metric values.
+        callbacks (`list[transformers.TrainerCallback]`):
+            The callbacks to use for training.
+        optimizers (`tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR]`):
+            The optimizer and scheduler to use for training.
+        preprocess_logits_for_metrics (`Callable[[torch.Tensor, torch.Tensor], torch.Tensor]`):
+            The function to use to preprocess the logits before computing the metrics.
 
-.. deprecated:: 0.22.0
-    The following parameters are deprecated and will be removed in a future version:
+    .. deprecated:: 0.22.0
+        The following parameters are deprecated and will be removed in a future version:
 
-    * `reward_model`: Use `reward_funcs` instead. For example, change `reward_model=model` to `reward_funcs=model`.
-    * `reward_processing_class`: Use `reward_processing_classes` instead. For example, change
-      `reward_processing_class=tokenizer` to `reward_processing_classes=tokenizer`.
-
+        * `reward_model`: Use `reward_funcs` instead. For example, change `reward_model=model` to `reward_funcs=model`.
+        * `reward_processing_class`: Use `reward_processing_classes` instead. For example, change
+          `reward_processing_class=tokenizer` to `reward_processing_classes=tokenizer`.
+    
     """
     def __init__(
         self,
