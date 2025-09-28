@@ -3,5 +3,8 @@ unsloth_compiled_cache
 submit_job.sh
 wandb
 _unsloth_temporary_saved_buffers
+<<<<<<< HEAD
+=======
 model_exp
 run.sh
+>>>>>>> cfe5016ab9f7203774da7535623a45787ffc6304

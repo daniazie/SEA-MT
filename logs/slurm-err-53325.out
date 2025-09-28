@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/data/dania.moriazi01/SEA-MT/models/cpt.py", line 8, in <module>
-    login(os.environ['HUGGINGFACE_TOKEN'])
-          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
-  File "<frozen os>", line 717, in __getitem__
-KeyError: 'HUGGINGFACE_TOKEN'
