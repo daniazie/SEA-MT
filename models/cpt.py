@@ -101,4 +101,4 @@ trainer = UnslothTrainer(
 trainer.train()
 
 model.push_to_hub(f"daniazie/Mistral-v0.3-7b-ms-{train_size}-CPT-adapters", tokenizer, save_method = "merged_4bit")
-model.push_to_hub_merged(f"daniazie/Mistral-v0.3-7b-ms-{train_size}-CPT", tokenizer, save_method = "merged_4bit")
+model.push_to_hub_merged(f"daniazie/Mistral-v0.3-7b-ms-{train_size}-CPT", tokenizer, save_method = "merged_16bit")

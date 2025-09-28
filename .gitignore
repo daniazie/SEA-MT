@@ -3,3 +3,5 @@ unsloth_compiled_cache
 submit_job.sh
 wandb
 _unsloth_temporary_saved_buffers
+model_exp
+run.sh
